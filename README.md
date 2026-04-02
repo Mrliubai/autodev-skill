@@ -33,15 +33,18 @@ or
     → 调研后仍有歧义，才向用户澄清（最多1个问题）
     ↓
 阶段2：任务拆解与 Agent 编排
-    → 生成 architect / design / frontend / backend / tester / deliver / pm / researcher 等专业 Agent
+    → 生成 architect / design / frontend / backend / tester / deliver / pm / researcher / code-reviewer / devops / data 等专业 Agent
     → 使用 Ruflo workflow + swarm 进行编排
-    → **backend-agent 按需召唤**
+    → **backend-agent / data-agent / devops-agent 按需召唤**
     ↓
 阶段3：自动开发
     → **design-agent 先出 UI 原型和交互设计**
+    → **data-agent 按需设计数据库 Schema 和迁移脚本**
     → 各 Agent 并行/顺序开发代码
     → **先读取 package.json / go.mod / pom.xml 推断技术栈**
     → 严格遵循项目现有规范
+    → **code-reviewer-agent 代码审查、性能优化、安全扫描**
+    → **devops-agent 按需生成 Docker / CI/CD / 部署配置**
     ↓
 阶段4：自动测试
     → 根据项目类型执行对应编译/构建命令
@@ -69,6 +72,9 @@ or
 | `deliver-agent` | 大白话交付报告 + 文档更新 | `agents/deliver.md` |
 | `pm-agent` | **自动更新 PRD 和项目待办记忆文档**，让项目文档与代码同步 | `agents/pm.md` |
 | `researcher-agent` | **全网竞品调研 + 需求合理性验证**，使用 WebSearch/WebFetch | `agents/researcher.md` |
+| `code-reviewer-agent` | **代码质量审查 + 性能优化 + 安全扫描**，在开发完成后测试前执行 | `agents/code-reviewer.md` |
+| `devops-agent` | **Docker / CI/CD / 部署脚本生成**，按运维需求召唤 | `agents/devops.md` |
+| `data-agent` | **数据库 Schema 设计 + 迁移脚本 + Mock 数据生成**，按数据需求召唤 | `agents/data.md` |
 
 ---
 
