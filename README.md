@@ -33,24 +33,26 @@ or
     → 调研后仍有歧义，才向用户澄清（最多1个问题）
     ↓
 阶段2：任务拆解与 Agent 编排
-    → 生成 architect / frontend / backend / tester / deliver / researcher 等专业 Agent
+    → 生成 architect / design / frontend / backend / tester / deliver / pm / researcher 等专业 Agent
     → 使用 Ruflo workflow + swarm 进行编排
     → **backend-agent 按需召唤**
     ↓
 阶段3：自动开发
+    → **design-agent 先出 UI 原型和交互设计**
     → 各 Agent 并行/顺序开发代码
     → **先读取 package.json / go.mod / pom.xml 推断技术栈**
     → 严格遵循项目现有规范
     ↓
 阶段4：自动测试
     → 根据项目类型执行对应编译/构建命令
+    → **如可本地预览，tester-agent 自动截图验证 UI 效果**
     → 功能验收测试
     → Bug 回退修复（最多3轮）
     ↓
 阶段5：交付与归档
     → 生成大白话交付报告
+    → **pm-agent 自动更新 PRD 和项目待办记忆**
     → Git 提交（征得同意后）
-    → 更新项目文档进度
 ```
 
 ---
@@ -60,10 +62,12 @@ or
 | Agent 类型 | 职责 | 配置文件 |
 |-----------|------|---------|
 | `architect-agent` | 技术方案设计、文件结构规划（**任何任务都必须先执行**） | `agents/architect.md` |
+| `design-agent` | **页面原型设计**，输出 UI 结构图和交互说明（**在 architect 之后、frontend 之前执行**） | `agents/design.md` |
 | `frontend-agent` | 前端页面/组件开发，自动适配 Vue/React/Angular/原生 | `agents/frontend.md` |
 | `backend-agent` | 后端 API/数据库开发，**按需召唤**，自动适配 Go/Java/Python/Node.js/Rust | `agents/backend.md` |
-| `tester-agent` | 编译检查 + 功能验收，自动调用 `npm build` / `mvn` / `go build` 等 | `agents/tester.md` |
+| `tester-agent` | 编译检查 + 功能验收 + **浏览器截图验证 UI**，自动调用 `npm build` / `mvn` / `go build` 等 | `agents/tester.md` |
 | `deliver-agent` | 大白话交付报告 + 文档更新 | `agents/deliver.md` |
+| `pm-agent` | **自动更新 PRD 和项目待办记忆文档**，让项目文档与代码同步 | `agents/pm.md` |
 | `researcher-agent` | **全网竞品调研 + 需求合理性验证**，使用 WebSearch/WebFetch | `agents/researcher.md` |
 
 ---
