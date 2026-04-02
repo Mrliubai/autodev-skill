@@ -28,10 +28,12 @@ or
 用户说需求
     ↓
 阶段1：需求智能分析与验证
-    → 提取功能点、评估合理性、必要时向用户澄清（最多3个问题）
+    → 提取功能点、评估合理性、**优先召唤 researcher-agent 做全网调研**
+    → 查找类似产品实现方式、行业通行方案、技术可行性验证
+    → 调研后仍有歧义，才向用户澄清（最多1个问题）
     ↓
 阶段2：任务拆解与 Agent 编排
-    → 生成 architect / frontend / backend / tester / deliver 等专业 Agent
+    → 生成 architect / frontend / backend / tester / deliver / researcher 等专业 Agent
     → 使用 Ruflo workflow + swarm 进行编排
     → **backend-agent 按需召唤**
     ↓
@@ -62,6 +64,7 @@ or
 | `backend-agent` | 后端 API/数据库开发，**按需召唤**，自动适配 Go/Java/Python/Node.js/Rust | `agents/backend.md` |
 | `tester-agent` | 编译检查 + 功能验收，自动调用 `npm build` / `mvn` / `go build` 等 | `agents/tester.md` |
 | `deliver-agent` | 大白话交付报告 + 文档更新 | `agents/deliver.md` |
+| `researcher-agent` | **全网竞品调研 + 需求合理性验证**，使用 WebSearch/WebFetch | `agents/researcher.md` |
 
 ---
 
@@ -132,7 +135,7 @@ export AUTODEV_MEMORY_DIR="/Users/你的名字/.claude/projects/.../memory"
 
 ## 注意事项
 
-- 如果需求有歧义，Master Agent **会主动问你最多 3 个问题**，请尽量回答清楚。
+- 如果需求有歧义，Master Agent **会先召唤 researcher-agent 进行全网调研**，查找类似产品、验证技术可行性。**只有在调研后仍无法确认时，才会问你最多 1 个问题**。
 - 如果涉及删除大量文件、修改数据库 schema、推送代码等危险操作，会**先征得你的同意**。
 - 每完成一个阶段，会向你汇报进度，不会长时间静默运行。
 - 如对任意技术栈有强烈的自定义偏好，可以在项目根目录下提供 `autodev.config.json` 配置文件覆盖自动推断结果。
@@ -146,3 +149,5 @@ export AUTODEV_MEMORY_DIR="/Users/你的名字/.claude/projects/.../memory"
 3. 重启 Claude Code 即可使用 `/autodev`。
 
 > 💡 **这个 SKILL 是通用版！** 不绑定任何特定项目，会自动探测技术栈。你和朋友可以用在 Vue、React、Python、Go 等各种项目上。
+> 
+> 🔍 **新增全网调研能力**：对于模糊的需求，AutoDev 会先自动上网搜索类似产品和技术方案做验证，调研无果后才问用户，最大程度减少小白用户的沟通负担。
